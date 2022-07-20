@@ -129,19 +129,27 @@ const App = () => {
     const result = window.confirm(`Delete ${deletedPersonObj.name}?`);
 
     if (result)
-      personService.deletePerson(id).then((deletedPersonId) => {
-        setPersons(
-          persons.filter((p) => {
-            if (p.id !== id) {
-              return p;
-            }
-          })
-        );
-        setSuccessMessage(`deleted`);
-        setTimeout(() => {
-          setSuccessMessage(null);
-        }, 3000);
-      });
+      personService
+        .deletePerson(id)
+        .then((deletedPersonId) => {
+          setPersons(
+            persons.filter((p) => {
+              if (p.id !== id) {
+                return p;
+              }
+            })
+          );
+          setSuccessMessage(`deleted`);
+          setTimeout(() => {
+            setSuccessMessage(null);
+          }, 3000);
+        })
+        .catch((error) => {
+          setSuccessMessage("Information of this person has already been removed from the server");
+          setTimeout(() => {
+            setSuccessMessage(null);
+          }, 3000);
+        });
   };
 
   return (
@@ -155,7 +163,8 @@ const App = () => {
       <h2>add a new</h2>
 
       <PersonForm
-        newName={newName}a
+        newName={newName}
+        a
         newPhone={newPhone}
         onNewPersonSubmit={onNewPersonSubmit}
         handleNameChange={handleNameChange}
