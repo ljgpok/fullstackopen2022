@@ -91,15 +91,25 @@ const App = () => {
   };
 
   const createPerson = (personObj) => {
-    personService.create(personObj).then((returnedPerson) => {
-      setPersons([...persons, returnedPerson]);
-      setNewName("");
-      setNewPhone("");
-      setSuccessMessage(`added ${returnedPerson.name}`);
-      setTimeout(() => {
-        setSuccessMessage(null);
-      }, 3000);
-    });
+    personService
+      .create(personObj)
+      .then((returnedPerson) => {
+        setPersons([...persons, returnedPerson]);
+        setNewName("");
+        setNewPhone("");
+        setSuccessMessage(`added ${returnedPerson.name}`);
+        setTimeout(() => {
+          setSuccessMessage(null);
+        }, 3000);
+      })
+      .catch((error) => {
+        setIsNotifStyle(true);
+        setSuccessMessage(`${error.response.data.error}`);
+        setTimeout(() => {
+          setIsNotifStyle(false);
+          setSuccessMessage(null);
+        }, 3000);
+      });
   };
 
   const onNewPersonSubmit = (e) => {
@@ -145,7 +155,9 @@ const App = () => {
           }, 3000);
         })
         .catch((error) => {
-          setSuccessMessage("Information of this person has already been removed from the server");
+          setSuccessMessage(
+            "Information of this person has already been removed from the server"
+          );
           setTimeout(() => {
             setSuccessMessage(null);
           }, 3000);
