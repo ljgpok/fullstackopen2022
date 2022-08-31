@@ -1,0 +1,29 @@
+GET http://localhost:3001/api/blogs
+
+###
+GET http://localhost:3001/api/blogs/62e040d5c747da23ed78b849
+
+###
+DELETE http://localhost:3001/api/blogs/62e10ee611fafe2b58bf705a
+
+###
+POST http://localhost:3001/api/blogs/ 
+Content-Type: application/json
+
+{
+    "title": "Full stackopen 2021",
+    "author": "University of Helsinki",
+    "url": "www.fullstackopen.com",
+    "likes" : 100
+}
+
+###
+PUT http://localhost:3001/api/blogs/62e12a691a3d866200ccb3de
+Content-Type: application/json
+
+{
+    "title": "Full stackopen 2021",
+    "author": "University of Helsinki",
+    "url": "www.fullstackopen.com",
+    "likes" : 100
+}
